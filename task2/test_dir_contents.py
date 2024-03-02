@@ -5,10 +5,6 @@ from collections import namedtuple
 from main import get_dir_contents
 
 
-# captured = capfd.readouterr()
-# assert captured.out == ''
-
-
 class TestDirContents:
 
     @pytest.fixture
@@ -19,11 +15,20 @@ class TestDirContents:
 
     @pytest.fixture
     # Создадим временную тестируемую папку '/test/' с подпапками и файлами
-    def dir_item_test_folder(self):
+    def dir_item_test_folder(self, request):
         os.makedirs('test/dir1', exist_ok=True)
         os.makedirs('test/dir2', exist_ok=True)
         with (open('test/file1.f1', 'w'), open('test/file2.f2', 'w')):
             pass
+
+        def delete_file():
+            os.remove('test/file1.f1')
+            os.remove('test/file2.f2')
+            os.rmdir(os.path.abspath('test/dir1'))
+            os.rmdir(os.path.abspath('test/dir2'))
+            os.rmdir(os.path.abspath('test'))
+
+        request.addfinalizer(delete_file)
 
     @pytest.fixture
     # Зафиксируем кортеж имен временной тестируемой папки '/test/'
