@@ -8,7 +8,7 @@ from main import get_dir_contents
 class TestDirContents:
 
     @pytest.fixture
-    # Создадим заготовку для проверки на соответствие типов
+    # Создадим заготовку для проверки на соответствие типов.
     def dir_item_for_type_check(self):
         DirItem = namedtuple('DirItem', 'name ext is_dir parent')
         return DirItem
