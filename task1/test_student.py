@@ -29,7 +29,7 @@ class TestStudent:
 
         return file
 
-    # Проверка создания временного файла с учебными предметами
+    # Проверка создания временного файла с учебными предметами 
     def test_subjects_file_creation(self, subjects_file):
         with open(subjects_file, 'r', newline='', encoding='utf-8') as f:
             csv_reader = csv.reader(f)
